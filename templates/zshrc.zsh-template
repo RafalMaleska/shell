@@ -1,0 +1,219 @@
+# disable output of executed commands
+set +x
+
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+LOCAL_ZSH_CONFIG="$HOME/.zshrc.local"
+if [[ -f "$LOCAL_ZSH_CONFIG" ]]; then
+  source $LOCAL_ZSH_CONFIG
+fi
+
+if [[ "$(uname | tr "[:upper:]" "[:lower:]" )" == "darwin" ]]; then
+  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-ls/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-indent/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/ed/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gawk/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/make/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-time/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-which/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+  export PATH="/usr/local/opt/binutils/bin:$PATH"
+
+  : "${JAVA_HOME_TOOL_PATH:=/usr/libexec}"
+
+  jdk() {
+    version=$1
+    if [[ ! -x $JAVA_HOME_TOOL_PATH/java_home ]]; then
+      echo "please provide the tool java_home in JAVA_HOME_TOOL_PATH $JAVA_HOME_TOOL_PATH to use this functionality"
+      echo "to change the path, please export JAVA_HOME_TOOL_PATH in the file $LOCAL_ZSH_CONFIG to overwrite default"
+      return 1
+    fi
+
+    if [ -n "$1" ]; then
+      export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+    else
+      /usr/libexec/java_home -V 2>&1 | head -n -1
+    fi
+    echo "Current: $(java -version 2>&1 | head -n 1)"
+  }
+
+  
+  if [[ -x /usr/libexec/java_home ]]; then
+    if [[ -z "PREFFERED_JDK_VERSION" ]] || [[ "$PREFFERED_JDK_VERSION" == "" ]]; then
+      versions=( $(/usr/libexec/java_home -V 2>&1 | tr -d "[:blank:]" | grep '^[0-9]' | sed -E 's/([0-9]+\.[0-9]+\.[0-9]+).*/\1/' | sort -V ) )
+      if [[ ${#versions[@]} -gt 0 ]]; then
+        export JAVA_HOME=$(/usr/libexec/java_home -v${versions[-1]})
+      fi
+    else
+      # if you want to set PREFFERED_JDK_VERSION, please use $LOCAL_ZSH_CONFIG to place your export
+      export JAVA_HOME=$(/usr/libexec/java_home -v"$PREFFERED_JDK_VERSION");
+    fi
+  fi
+fi
+
+if command -v go &>/dev/null && [[ -d ${HOME}/go/bin ]]; then
+  export PATH="${HOME}/go/bin:$PATH" 
+fi
+
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.zsh-suite
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="agnoster"
+DISABLE_AUTO_TITLE="true"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.zsh-suite/plugins/*
+# Custom plugins may be added to ~/.zsh-suite/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+    git
+    golang
+    command-not-found
+    zsh-output-highlighting
+    common-aliases
+    ssh-agent
+    encode64
+    git-extras
+    history
+    jsontools
+    kubeconfig
+    kube-ps1
+    kubectl
+    aws-cli-mfa
+    traps
+    zsh-autosuggestions
+)
+
+# set color of namespace in kube-ps1 rprompt for better match
+# with agnoster theme
+KUBE_PS1_NS_COLOR=blue
+
+# set the file kube-ps1-ctx.json as stage-config for kube-ps1
+# you can define your own colors and pattern for stage specific
+# colouring of the shown context / cluster within the right prompt
+KUBE_PS1_STAGE_CONFIG_JSON_FILE=~/.zsh-suite/custom/files/kube-ps1-ctx.json
+
+# or use an json defined as string
+#KUBE_PS1_STAGE_CONFIG_JSON='{"stages":[
+#                                        {"name":"production","patterns":["prd","prod"],"color":"red"},
+#                                        {"name":"test","patterns":["test","tst"],"color":"yellow"},
+#                                        {"name":"development","patterns":["dev"],"color":"white"}
+#                                      ]
+#                            }'
+#
+# or use an shell array
+#KUBE_PS1_STAGE_CONFIG=(
+#    "prd|prod":"red"
+#    "test|tst":"yellow"
+#    "dev":"white"
+#)
+
+# set matcher list for kubectx / kubens
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+
+# activate ssh forwarding
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+# sourcing main-file of zsh-suite
+source $ZSH/oh-my-zsh.sh
+
+# add custom bin path to PATH
+export PATH=$ZSH_CUSTOM/bin:$PATH
+
+export FPATH=$ZSH_CUSTOM/completions:$FPATH
+
+# activate autocompletion
+compinit
+
+# set kube-ps1 prompt as RPROMPT (right prompt)
+RPROMPT='$(kube_ps1)'
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+: "${AWS_TARGET_PROFILE_NAME:=default}"

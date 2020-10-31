@@ -1,0 +1,28 @@
+{
+    "stages": [
+        {
+            "name": "production",
+            "patterns":[
+                "prd",
+                "prod"
+            ],
+            "color": "red"
+        },
+        {
+            "name": "test",
+            "patterns":[
+                "test",
+                "tst"
+            ],
+            "color": "yellow"
+        },
+        {
+            "name": "development",
+            "patterns":[
+                "dev"
+            ],
+            "color": "white"
+        }
+
+    ]
+}
