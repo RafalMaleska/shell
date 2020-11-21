@@ -2,6 +2,7 @@
 alias watch="watch "
 
 # to add some tmux gimmics
+alias kc='kubectx'
 alias ta='tmux-attach '
 alias tn='tmux-new '
 alias ts='tmux-switch '
