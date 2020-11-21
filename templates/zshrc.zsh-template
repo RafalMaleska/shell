@@ -135,7 +135,6 @@ plugins=(
     git-extras
     history
     jsontools
-    kubeconfig
     kube-ps1
     kubectl
     traps
