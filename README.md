@@ -64,34 +64,8 @@ Change it a `settings -> Terminal -> Integrated Font Family`
 | Command | Description                      |
 | :-----  | :------------------------------- |
 | kc      | To switch between contexts       |
-| kcu     | To update all available contexts |
 | cl      | Shows list of last 100 git tags  |
 
-### JDK Switcher
-
-| Command | Description                      |
-| :-----  | :------------------------------- |
-| jdk     | Lists all installed jdk versions |
-| jdk 11  | Switches the jdk to version 11.x |
-| jdk 1.8 | Switches the jdk to version 1.8  |
-
-### Kafka Client CLI
-
-Lots of `kafka-*` cli commands are available in your zsh-suite.
-Those commands are targeting the kafka-broker, which is associated with the current connected kubernetes namespace (at the moment only dev and test).
-
-Supported commands:
-   `kafka-avro-console-consumer`,
-   `kafka-avro-console-producer`,
-   `kafka-broker-api-versions`,
-   `kafka-configs`,
-   `kafka-console-consumer`,
-   `kafka-console-producer`,
-   `kafka-consumer-groups`,
-   `kafka-delete-records`,
-   `kafka-consumer-perf-test`,
-   `kafka-mirror-maker`,
-   `kafka-topics`
 
 ## Links
 
