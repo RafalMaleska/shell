@@ -138,7 +138,6 @@ plugins=(
     kubeconfig
     kube-ps1
     kubectl
-    aws-cli-mfa
     traps
     zsh-autosuggestions
 )

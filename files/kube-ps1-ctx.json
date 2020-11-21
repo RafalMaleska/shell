@@ -9,10 +9,10 @@
             "color": "red"
         },
         {
-            "name": "test",
+            "name": "stageing",
             "patterns":[
-                "test",
-                "tst"
+                "stage",
+                "stg"
             ],
             "color": "yellow"
         },

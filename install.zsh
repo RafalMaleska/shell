@@ -15,7 +15,7 @@ if [[ -z "$REPO_KUBE_PS1" ]]; then
 fi
 
 if [[ -z "$REPO_ZSH_SUITE" ]]; then
-    REPO_ZSH_SUITE="git@gitlab.reisendeninfo.aws.db.de:aschwarz/zsh-suite.git"
+    REPO_ZSH_SUITE="git@github.com:RafalMaleska/shell.git"
 fi
 
 if [[ -z "$REPO_KUBECTX" ]]; then
@@ -24,10 +24,6 @@ fi
 
 if [[ -z "$REPO_ZSH_OUTPUT_HIGHLIGHTING" ]]; then
     REPO_ZSH_OUTPUT_HIGHLIGHTING="https://github.com/l4u/zsh-output-highlighting.git"
-fi
-
-if [[ -z "$REPO_AWS_CLI_MFA" ]]; then
-  REPO_AWS_CLI_MFA="git@gitlab.reisendeninfo.aws.db.de:ops/aws-cli-mfa.git"
 fi
 
 if [[ -z "$REPO_ZSH_AUTOSUGGESTIONS" ]]; then
@@ -354,15 +350,6 @@ function install_kubectx () {
     end_or_continue $return_code "$return_value"
 }
 
-function install_aws_cli_mfa () {
-    local return_value aws_cli_mfa_dir
-
-    aws_cli_mfa_dir="$ZSH_SUITE_CUSTOM_DIR/plugins/aws-cli-mfa"
-
-    # clone
-    get_from_git "aws-cli-mfa" "$REPO_AWS_CLI_MFA" "$aws_cli_mfa_dir"
-
-}
 
 function install_zsh_autosuggestions () {
     local return_value dir
@@ -399,6 +386,5 @@ function () {
     install_zsh_output_highlighting
     install_zsh_autosuggestions
     install_kubectx
-    install_aws_cli_mfa
     install_fcf
 }
