@@ -15,7 +15,7 @@ if [[ -z "$REPO_KUBE_PS1" ]]; then
 fi
 
 if [[ -z "$REPO_ZSH_SUITE" ]]; then
-    REPO_ZSH_SUITE="git@github.com:RafalMaleska/shell.git"
+    REPO_ZSH_SUITE="https://github.com/RafalMaleska/shell.git"
 fi
 
 if [[ -z "$REPO_KUBECTX" ]]; then
