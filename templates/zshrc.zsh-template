@@ -139,6 +139,23 @@ plugins=(
     kubectl
     traps
     zsh-autosuggestions
+    aws
+    helm
+    docker-compose
+    docker
+    fd
+    golang
+    gcloud
+    last-working-dir
+    minikube
+    microk8s
+    oc
+    tmux
+    themes
+    terraform
+    web-search
+    vscode
+    ubuntu
 )
 
 # set color of namespace in kube-ps1 rprompt for better match
