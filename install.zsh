@@ -376,6 +376,20 @@ function install_fcf () {
 
 }
 
+function zsh_customizations () {
+cat >>~/.zshrc <<EOL
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoredups
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
+
+
+EOL
+}
+
 function () {
     welcome_message
     precondition_check
@@ -387,4 +401,5 @@ function () {
     install_zsh_autosuggestions
     install_kubectx
     install_fcf
+    zsh_customizations
 }
