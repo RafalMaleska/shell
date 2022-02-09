@@ -378,15 +378,15 @@ function install_fcf () {
 
 function zsh_customizations () {
 cat >>~/.zshrc <<EOL
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
+# dont put duplicate lines or lines starting with space in the history.
 HISTCONTROL=ignoredups
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
-
+# add private key to every new shell
+ssh-add  ~/.ssh/id_rsa.key &> /dev/null
 EOL
 }
 

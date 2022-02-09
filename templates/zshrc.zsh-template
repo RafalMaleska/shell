@@ -156,6 +156,8 @@ plugins=(
     web-search
     vscode
     ubuntu
+    aws-mfa
+    istioctl
 )
 
 # set color of namespace in kube-ps1 rprompt for better match
