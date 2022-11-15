@@ -1,3 +1,6 @@
+# requires exa
+alias ls='exa --git --color=always --group-directories-first'
+alias du='dust'
 # to enable watch to use aliased commands
 alias watch="watch "
 
