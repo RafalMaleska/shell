@@ -137,7 +137,6 @@ plugins=(
     jsontools
     kube-ps1
     kubectl
-    traps
     zsh-autosuggestions
     aws
     helm
